@@ -1,4 +1,4 @@
-import { TNode } from 'src/pages/Home/types';
+import { TNode } from '../../pages/Home/types';
 
 export interface INodeCardProps {
   node: TNode;

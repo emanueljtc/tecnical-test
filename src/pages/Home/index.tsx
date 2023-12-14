@@ -1,43 +1,29 @@
-import { CodeBracketSquareIcon } from "@heroicons/react/24/outline";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react/jsx-key */
+import { useEffect, useMemo, useState } from 'react';
+import { CodeBracketSquareIcon } from '@heroicons/react/24/outline';
+import { getNodeParents } from '../../services';
+import { TNode } from './types';
+import NodeCard from 'components/NodeCard';
 
 const Home = () => {
-  const parents = [
-    {
-      id: 2,
-      parent: null,
-      title: "two",
-      created_at: null,
-      updated_at: null,
-    },
-    {
-      id: 3,
-      parent: null,
-      title: "three",
-      created_at: null,
-      updated_at: null,
-    },
-    {
-      id: 4,
-      parent: null,
-      title: "four",
-      created_at: null,
-      updated_at: null,
-    },
-    {
-      id: 6,
-      parent: null,
-      title: "six",
-      created_at: null,
-      updated_at: null,
-    },
-    {
-      id: 8,
-      parent: null,
-      title: "eight",
-      created_at: null,
-      updated_at: null,
-    },
-  ];
+  const [dataNodeParents, setDataNodeParents] = useState<TNode[]>([]);
+  const [nodeSelected, setNodeSelected] = useState<number>(0);
+  const handleGetNodeParents = async () => {
+    try {
+      const response: any = await getNodeParents();
+      setDataNodeParents(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    console.log(nodeSelected);
+  }, [nodeSelected]);
+
+  useMemo(() => handleGetNodeParents(), []);
+
   return (
     <main>
       <header className="pt-16 z-10 relative max-w-screen-lg xl:max-w-screen-xl mx-auto">
@@ -61,14 +47,23 @@ const Home = () => {
         </div>
       </header>
       <section className="max-w-screen-lg xl:max-w-screen-xl mx-auto">
-        <div className="flex">
-          {parents.map((parent) => (
-            <div
-              key={parent.id}
-              className="w-52 h-52 bg-white rounded-full p-4 flex items-center justify-center"
-            >
-              <p className="text-3xl font-bold uppercase">{parent.title}</p>
-            </div>
+        <div
+          className="
+            flex 
+            flex-col 
+            sm:flex-row 
+            justify-center 
+            sm:justify-between 
+            items-center 
+            flex-wrap
+            gap-4"
+        >
+          {dataNodeParents.map((parent) => (
+            <NodeCard
+              node={parent}
+              changeNodeSelected={setNodeSelected}
+              nodeSelected={nodeSelected}
+            />
           ))}
         </div>
       </section>
@@ -83,3 +78,4 @@ const Home = () => {
 };
 
 export default Home;
+

@@ -18,6 +18,7 @@ import {
 import { TNode } from './types';
 import NodeCard from 'components/NodeCard';
 import { handleErrorToast, handleSuccessToast } from '../../utils/tostifty';
+import { SwitchLenguage } from 'components/UIElements';
 
 const Home = () => {
   const [dataNodeParents, setDataNodeParents] = useState<TNode[]>([]);
@@ -141,7 +142,9 @@ const Home = () => {
     }
   }, [nodeSelected]);
 
-  useMemo(() => handleGetNodeParents(), []);
+  useMemo(() => {
+    handleGetNodeParents();
+  }, []);
 
   return (
     <main>
@@ -165,16 +168,20 @@ const Home = () => {
           <CodeBracketSquareIcon width={200} height={200} color="#800080" />
         </div>
       </header>
-      {showButtonOrigin && (
-        <section className="max-w-screen-lg xl:max-w-screen-xl mx-auto">
+      <section className="max-w-screen-lg xl:max-w-screen-xl mx-auto flex flex-col gap-4">
+        {showButtonOrigin && (
           <button
             onClick={handleGetNodeParents}
-            className="p-4 bg-purple-400 rounded-md text-2xl font-bold hover:text-white uppercase"
+            className="w-1/4 p-4 bg-purple-400 rounded-md text-2xl font-bold hover:text-white uppercase"
           >
             Ir al origen
           </button>
-        </section>
-      )}
+        )}
+        <SwitchLenguage 
+          dataNodeParents={dataNodeParents}
+          setDataNodeParents={setDataNodeParents}
+        />
+      </section>
       <section className="max-w-screen-lg xl:max-w-screen-xl mx-auto">
         <div
           className="

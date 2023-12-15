@@ -3,6 +3,7 @@ import { getChildsNode } from './get/getChildsNode';
 import { getSearchNode } from './get/getSearchNode';
 import { deleteNodeServices } from './delete/deleteNodeService';
 import { postCreateNode } from './post/postCreateNode';
+import { getLocalesLenguage } from './get/getLocalesLenguage';
 
 export {
   getNodeParents,
@@ -10,5 +11,6 @@ export {
   getSearchNode,
   deleteNodeServices,
   postCreateNode,
+  getLocalesLenguage,
 };
 

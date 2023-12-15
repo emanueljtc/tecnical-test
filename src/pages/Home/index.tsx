@@ -1,25 +1,41 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react/jsx-key */
 import { useEffect, useMemo, useState } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
 import { CodeBracketSquareIcon } from '@heroicons/react/24/outline';
-import { getNodeParents } from '../../services';
+import { getChildsNode, getNodeParents } from '../../services';
 import { TNode } from './types';
 import NodeCard from 'components/NodeCard';
+import { handleErrorToast } from '../../utils/tostifty';
 
 const Home = () => {
   const [dataNodeParents, setDataNodeParents] = useState<TNode[]>([]);
   const [nodeSelected, setNodeSelected] = useState<number>(0);
   const handleGetNodeParents = async () => {
     try {
-      const response: any = await getNodeParents();
-      setDataNodeParents(response.data);
+      const { data }: any = await getNodeParents();
+      setDataNodeParents(data);
     } catch (error) {
       console.error(error);
     }
   };
+  const handleGetChildsNode = async () => {
+    try {
+      const response: any = await getChildsNode({ id: nodeSelected });
+      console.log(response);
+    } catch (error: any) {
+      if (error) {
+        const { message } = error.response?.data;
+        console.log(message);
+        handleErrorToast(message);
+      }
+    }
+  };
 
   useEffect(() => {
-    console.log(nodeSelected);
+    if (nodeSelected !== 0) {
+      handleGetChildsNode();
+    }
   }, [nodeSelected]);
 
   useMemo(() => handleGetNodeParents(), []);
@@ -58,8 +74,9 @@ const Home = () => {
             flex-wrap
             gap-4"
         >
-          {dataNodeParents.map((parent) => (
+          {dataNodeParents.map((parent, index) => (
             <NodeCard
+              key={index}
               node={parent}
               changeNodeSelected={setNodeSelected}
               nodeSelected={nodeSelected}

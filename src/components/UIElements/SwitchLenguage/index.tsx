@@ -1,3 +1,10 @@
+/**
+ * Renders a language switcher component.
+ *
+ * @param {ISwitchLenguageProps} dataNodeParents - The data node parents.
+ * @param {function} setDataNodeParents - The function to set the data node parents.
+ * @return {JSX.Element} The language switcher component.
+ */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useMemo, useState } from 'react';
@@ -77,7 +84,7 @@ const SwitchLenguage = ({
       setLocales(response.data);
     } catch (error: any) {
       if (error) {
-        const { message } = error.response?.data;
+        const message = error.response?.data.message;
         handleErrorToast(message);
       }
     }

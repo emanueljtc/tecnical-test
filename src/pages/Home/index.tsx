@@ -93,7 +93,15 @@ const Home = () => {
      */
     try {
       setIsLoading(true);
-      await deleteNodeServices({ id: idParent });
+      const response: any = await deleteNodeServices({ id: idParent });
+      if (response.status === 200) {
+        handleSuccessToast('Node deleted successfully');
+        const filterData = dataNodeParents.filter(
+          (item: TNode) => item.id !== idParent
+        );
+        console.log(filterData);
+        setDataNodeParents(filterData);
+      }
     } catch (error: any) {
       if (error) {
         setIsLoading(false);
@@ -177,7 +185,7 @@ const Home = () => {
             Ir al origen
           </button>
         )}
-        <SwitchLenguage 
+        <SwitchLenguage
           dataNodeParents={dataNodeParents}
           setDataNodeParents={setDataNodeParents}
         />

@@ -180,7 +180,7 @@ const Home = () => {
         {showButtonOrigin && (
           <button
             onClick={handleGetNodeParents}
-            className="w-1/4 p-4 bg-purple-400 rounded-md text-2xl font-bold hover:text-white uppercase"
+            className="w1/2 lg:w-1/4 p-4 bg-purple-400 rounded-md text-2xl font-bold hover:text-white uppercase"
           >
             Ir al origen
           </button>

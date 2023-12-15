@@ -1,12 +1,16 @@
+/**
+ * Retrieves the parents of a node by making an HTTP GET request to the GET_NODE_PARENTS endpoint.
+ *
+ * @return {Promise<any>} A promise that resolves with the response from the GET request, or rejects with an error.
+ */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios from "axios";
-import { GET_NODE_PARENTS, REACT_APP_API_URL_BASE } from "../variablesGlobal";
+import axios from 'axios';
+import { GET_NODE_PARENTS } from '../variablesGlobal';
 
-const BASE_URL = `${REACT_APP_API_URL_BASE}${GET_NODE_PARENTS}`;
 export const getNodeParents = () =>
   new Promise((resolve, reject) => {
     axios
-      .get(BASE_URL)
+      .get(GET_NODE_PARENTS)
       .then((resp: any) => {
         resolve(resp);
       })
